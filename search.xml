@@ -1,6 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>JavaScript(七) 面向对象</title>
+    <url>/posts/23b66728/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>JavaScript 支持面向对象的编程范式，面向对象是一种对现实世界理解和抽象的方法</p>
+<p>所谓对象通常是指客观世界中的真实存在的事物，实物，实象。例如：一支笔、一本书、一只鸟</p>
+<p><strong>面向对象编程的三大特征：</strong></p>
+<ul>
+<li><p><strong>封装</strong>：只关心入口和出口，而不关心过程</p>
+</li>
+<li><p><strong>继承</strong>：指类与类之间的关系。如果两个类都有相同的属性或方法，那么可以让一个类继承于另类，这样就不需要在前者再次定义同样的属性或方法</p>
+</li>
+<li><p><strong>多态</strong>：不同的对象可以定义具有相同名称的方法，方法是作用于所在的对象中。这种不同对象通过相同方法的调用实现各自行为的能力，被称之为多态</p>
+</li>
+</ul>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>构造函数又可称为对象模版或类型对象，通过构造函数我们可以创建特定<strong>类型</strong>的对象( 实例 )</p>
+<p>构造函数和普通函数的定义方式是一样的，通常为了区分，构造函数的名称首字母要求大写</p>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 名称(<span class="params">[形参<span class="number">1</span>, 形参<span class="number">2.</span>..形参N]</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//constructor body</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建实例"><a href="#创建实例" class="headerlink" title="创建实例"></a>创建实例</h3><p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> 对象名 = <span class="keyword">new</span> 构造函数([实参<span class="number">1</span>, 实参<span class="number">2.</span>..实参N])</span><br></pre></td></tr></table></figure>
+
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, gender</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name,</span><br><span class="line">  <span class="built_in">this</span>.age = age,</span><br><span class="line">  <span class="built_in">this</span>.gender = gender;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//方法需要添加到原型中以节省资源</span></span><br><span class="line">  alert(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建实例 */</span></span><br><span class="line"><span class="keyword">var</span> xiaoming = <span class="keyword">new</span> Person(<span class="string">&quot;小明&quot;</span>, <span class="number">18</span>, <span class="string">&quot;男&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> xiaomei = <span class="keyword">new</span> Person(<span class="string">&quot;小美&quot;</span>, <span class="number">16</span>, <span class="string">&quot;女&quot;</span>);</span><br><span class="line"><span class="comment">/* 输出实例 */</span></span><br><span class="line"><span class="built_in">console</span>.log(xiaoming, xiaomei) <span class="comment">//输出：Person&#123;name: &#x27;小明&#x27;, ...&#125; Person&#123;name: &#x27;小美&#x27;, ...&#125;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>类是<strong>封装</strong>对象的属性和方法的<strong>载体</strong>。类定义了对象的特征，例如一辆汽车( 对象 )的名称、车型、重量、颜色等等都是这辆车的属性，而汽车的启动和停止则是这辆车的行为(方法)</p>
+<p>类是面向对象编程中的一个基本的概念。实际上在 Js 中并没有类的概念❕，但 Js 通过构造函数和原型可以实现对类的支持</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><em>类是对象的抽象，而对象是类的具体实例</em></p>
+<p>通过类所创建的对象称为该类的实例，例如上面案例中的对象<code>xiaoming</code>和<code>xiaomei</code>都是<code>Person</code>类的实例</p>
+<h3 id="this-关键字"><a href="#this-关键字" class="headerlink" title="this 关键字"></a>this 关键字</h3><p>this是Js引擎在执行时自动定义的变量，其值会指向一个对象</p>
+<ul>
+<li><p>在全局作用域中访问this时，其值指向全局对象<code>window</code>(默认值)</p>
+</li>
+<li><p>在函数作用域中访问this时，根据 <strong>函数调用方式</strong> 的不同，this会指向不同的对象</p>
+</li>
+</ul>
+<ol>
+<li><p>以方法调用时，this会指向该方法所在的对象</p>
+</li>
+<li><p>以构造函数调用( <code>new 构造函数</code> )时，this会指向其所创建的实例对象</p>
+</li>
+</ol>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">xiaoming.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;myName is &#x27;</span>+<span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line">xiaoming.sayName(); <span class="comment">//执行结果：myName is 小明</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="new-运算符"><a href="#new-运算符" class="headerlink" title="new 运算符"></a>new 运算符</h3><p>使用new运算符来进行<strong>对象实例化</strong>（根据类创建对象的过程）</p>
+<p>实例化的过程：</p>
+<ol>
+<li>创建一个空对象（即<code>&#123;&#125;</code>）</li>
+<li>执行构造函数，执行前会先</li>
+</ol>
+<ul>
+<li>将变量<code>this</code>的值指向步骤1中所创建的那个对象</li>
+<li>并向对象中添加属性<code>__proto__</code>，将该属性的值指向构造函数的<strong>原型对象</strong>（<code>prototype</code>）</li>
+</ul>
+<ol start="3">
+<li>构造函数执行完后，返回<strong>实例对象</strong>( 没有手动返回了一个对象的情况下，为步骤1中所创建的那个对象 )</li>
+</ol>
+</blockquote>
+<h2 id="call、apply、bind-方法"><a href="#call、apply、bind-方法" class="headerlink" title="call、apply、bind 方法"></a>call、apply、bind 方法</h2><p><code>call</code>、<code>apply</code>、<code>bind</code> 是 <strong>Function类型对象</strong>( 函数 )中的方法，通过 <code>call()</code>、<code>apply()</code>、<code>bind()</code> 方法可以改变函数作用域中变量 this 的值</p>
+<p><code>call()</code>的语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">函数.call(<span class="built_in">this</span>的值, 实参<span class="number">1</span>, 实参<span class="number">2.</span>..实参N)</span><br></pre></td></tr></table></figure>
+
+<p><code>apply()</code>的语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">函数.apply(<span class="built_in">this</span>的值, [实参列表])</span><br></pre></td></tr></table></figure>
+
+<p><code>bind()</code>的语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">函数.bind(<span class="built_in">this</span>的值, 实参<span class="number">1</span>, 实参<span class="number">2.</span>..实参N)</span><br></pre></td></tr></table></figure>
+
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 例1 */</span></span><br><span class="line"><span class="built_in">window</span>.number = <span class="string">&#x27;one&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> s1 = &#123;<span class="attr">number</span>: <span class="string">&#x27;tow&#x27;</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.number);</span><br><span class="line">&#125;</span><br><span class="line">change.apply();         <span class="comment">//执行结果：one</span></span><br><span class="line">change.apply(<span class="built_in">window</span>);   <span class="comment">//执行结果：one</span></span><br><span class="line">change.apply(<span class="built_in">this</span>);     <span class="comment">//执行结果：one</span></span><br><span class="line">change.apply(s1);       <span class="comment">//执行结果：tow</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 例2 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> reply = <span class="built_in">this</span>.animal + <span class="string">&#x27;通常只睡&#x27;</span> + <span class="built_in">this</span>.sleepDuration;</span><br><span class="line">  <span class="built_in">console</span>.log(reply);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">animal</span>: <span class="string">&#x27;猫&#x27;</span>,</span><br><span class="line">  <span class="attr">sleepDuration</span>: <span class="string">&#x27;12～16个小时&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line">greet.call(obj);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="call、apply、bind-的区别"><a href="#call、apply、bind-的区别" class="headerlink" title="call、apply、bind 的区别"></a>call、apply、bind 的区别</h3><p><code>call</code>、<code>apply</code>、<code>bind</code> 方法都包含一个<strong>对象</strong>( 严格模式下除外 )作为该方法的第1个参数，其后的参数会作为函数的实参。但在传参时，<code>apply()</code> 方法需要将实参以数组的形式传递至函数</p>
+<p><code>call</code> 和 <code>apply</code> 方法会以指定的 this 的值调用一次该函数，而 <code>bind()</code> 方法会将其所在函数返回，不会自动调用</p>
+<p>如果以上传入的第一个参数为 null 或 undefined 则不会改变函数作用域中 this 的值( 严格模式除外 )</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">c, d</span>)</span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">this</span>.a + <span class="built_in">this</span>.b + c + d;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> s = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(add.call(s, <span class="number">3</span>, <span class="number">4</span>)); <span class="comment">//输出：10</span></span><br><span class="line"><span class="built_in">console</span>.log(add.apply(s, [<span class="number">5</span>, <span class="number">6</span>])); <span class="comment">//输出：14</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="原型（prototype）"><a href="#原型（prototype）" class="headerlink" title="原型（prototype）"></a>原型（prototype）</h2><p>函数是一个包含属性和方法的 <strong>Function 类型</strong>的对象。而原型( <code>prototype</code> )就是 Function 类型对象的一个属性</p>
+<p>js 中所有函数在定义时，js 引擎都会自动向函数中添加<code>prototype</code>属性，其值是一个 Object 类型的对象( <code>new Object()</code> )，称为原型对象( prototype对象 )，该对象有一个 constructor 属性指向该构造函数</p>
+<p>当通过构造函数创建实例时，实例对象中会有一个隐藏的内部属性( <code>__proto__</code> )指向其构造函数的原型对象</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="built_in">console</span>.log(obj.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>每个实例对象都有一个私有属性（称之为<code>__proto__</code>）指向它的构造函数的原型对象（<code>prototype</code>）。该原型对象也有一个自己的原型对象（<code>__proto__</code>），层层向上直到一个对象的<code>__proto__</code>属性值为<code>null</code>为止。这种沿着<code>__proto__</code>属性的链式结构就称为原型链</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//this.xxx = xxx;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fun = <span class="keyword">new</span> Fn();</span><br><span class="line">Fn.prototype.a = <span class="number">123</span>;</span><br><span class="line"><span class="built_in">console</span>.log(fun.a, fun.b); <span class="comment">//输出：123 undefined</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn3.tianli0.top/gh/k34869/images/image/20221112104157" alt="prototype"></p>
+<p>原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象</p>
+<p>当从对象中访问一个属性时会先在自身对象中查找</p>
+<ul>
+<li>如果没找到，则沿着<code>__proto__</code>这条链向上查找</li>
+<li>如果依然没找到，则返回 undefined</li>
+</ul>
+<h3 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h3><p>描述：获取指定对象的原型</p>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(对象)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-setPrototypeOf"><a href="#Object-setPrototypeOf" class="headerlink" title="Object.setPrototypeOf()"></a>Object.setPrototypeOf()</h3><p>描述：设置指定对象的原型</p>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf(对象, 原型)</span><br></pre></td></tr></table></figure>
+
+<h3 id="hasOwnProperty-NaN"><a href="#hasOwnProperty-NaN" class="headerlink" title="hasOwnProperty()"></a>hasOwnProperty()</h3><p>描述：检测对象中的属性是否存在( 不包括原型中的属性，检测原型中的属性可以用 in 运算符 )，存在则返回 true，反之则为 false</p>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">对象.hasOwnProperty(属性名) <span class="comment">//属性名为一个字符串</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>JavaScript 是基于原型实现的继承，和其它传统的基于类的语言( 如 Java 或 C++ )相比，Js 显得比较独特</p>
+<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p>核心：将父类实例作为子类原型</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.a = <span class="string">&#x27;My is a&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">A.prototype.ca = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.b = <span class="string">&#x27;My is b&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A(); <span class="comment">//子类的prototype指向父类的实例对象</span></span><br><span class="line">B.prototype.constructor = B; <span class="comment">//修正构造函数指向</span></span><br><span class="line">B.prototype.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="built_in">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>PS：原型链虽然很强大，用它可以实现 JavaScript 中的继承，但同时也存在着一些问题。原型链继承实际上是在多个构造函数或对象之间共享属性和方法，这种方法在创建子类的对象时，不能向父类的构造函数传递任何参数</p>
+</blockquote>
+<h3 id="借用构造函数继承"><a href="#借用构造函数继承" class="headerlink" title="借用构造函数继承"></a>借用构造函数继承</h3><p>核心：借用父类构造函数来增强子类实例，等于复制父类实例的属性给子类</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">    <span class="built_in">this</span>.ca = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(<span class="built_in">this</span>.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>, <span class="string">&#x27;a&#x27;</span>) <span class="comment">//调用父类构造函数，并绑定 this</span></span><br><span class="line">    <span class="built_in">this</span>.b = b</span><br><span class="line">    <span class="built_in">this</span>.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(<span class="built_in">this</span>.b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>PS：借用构造函数继承就是通过 <code>apply()</code> 或 <code>call()</code> 方法在子类构造函数中调用父类的构造函数，并将父类和子类的 this 绑定在一起，这种方式可以向父类传递参数，但不能实现方法的复用</p>
+</blockquote>
+<h3 id="组合式继承"><a href="#组合式继承" class="headerlink" title="组合式继承"></a>组合式继承</h3><p>核心：通过调用父类构造函数来实现向父类构造函数传递参数，然后通过将父类实例作为子类原型来实现方法复用</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.cs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>, <span class="string">&#x27;a&#x27;</span>) <span class="comment">//调用父类构造函数，并绑定 this</span></span><br><span class="line">    <span class="built_in">this</span>.b = b</span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A; <span class="comment">//子类的prototype指向父类的实例对象</span></span><br><span class="line">B.prototype.constructor = B; <span class="comment">//修正构造函数指向</span></span><br><span class="line">B.prototype.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>PS：组合继承是将原型链继承和借用构造函数的技术组合在一起，发挥二者长处的一种继承方式，这样，既通过在原型上定义方法实现了方法的复用，又可以保证每个对象都有自己的专有属性，但这种方法，会调用2次父类的构造函数，因此会存在一份多余的实例属性</p>
+</blockquote>
+<h3 id="组合寄生式继承"><a href="#组合寄生式继承" class="headerlink" title="组合寄生式继承"></a>组合寄生式继承</h3><p>核心：通过调用父类构造函数来实现向父类构造函数传递参数，然后通过将父类原型作为新对象的原型，并将新对象赋值给子类原型来实现方法复用，并且避免了多余的实例属性</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.cs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>, <span class="string">&#x27;a&#x27;</span>) <span class="comment">//调用父类构造函数，并绑定 this</span></span><br><span class="line">    <span class="built_in">this</span>.b = b</span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="built_in">Object</span>.create(A.prototype); <span class="comment">//将父类原型作为新对象的原型，并将新对象赋值给子类原型</span></span><br><span class="line">B.prototype.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="父类和子类"><a href="#父类和子类" class="headerlink" title="父类和子类"></a><span title="基类">父类</span>和子类</h3><p>继承的类称为子类，被继承的类称为父类，子类具有父类的全部属性和方法，但父类不能拥有子类的属性和方法</p>
+<h3 id="instanceof-运算符"><a href="#instanceof-运算符" class="headerlink" title="instanceof 运算符"></a>instanceof 运算符</h3><p><strong><code>instanceof</code></strong> <strong>运算符</strong>用于检测构造函数的 <code>prototype</code> 属性是否在某个实例对象的原型链上，如果在，则返回 true，反之返回 false</p>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">对象 <span class="keyword">instanceof</span> 构造函数</span><br></pre></td></tr></table></figure>
+
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">D</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> C();</span><br><span class="line">o <span class="keyword">instanceof</span> C; <span class="comment">//返回true</span></span><br><span class="line">o <span class="keyword">instanceof</span> D; <span class="comment">//返回false</span></span><br><span class="line">C.prototype <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">//返回true</span></span><br><span class="line">D.prototype = <span class="keyword">new</span> C(); <span class="comment">//继承</span></span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> D();</span><br><span class="line">o2 <span class="keyword">instanceof</span> D; <span class="comment">//返回true</span></span><br><span class="line">o2 <span class="keyword">instanceof</span> C; <span class="comment">//返回true</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Web开发</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaScript(一) 发展与使用</title>
     <url>/posts/72fcc0e1/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>JavaScript 是一种具有<strong>函数优先</strong>特性的轻量级、<strong>解释型</strong>( 无需手动编译，运行时边解释边执行 )的编程语言，它是运行在 Web浏览器中的一种脚本语言，当然，也还可被运行在一些非浏览器环境中，如：Node.js</p>
@@ -161,149 +314,144 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaScript(七) 面向对象</title>
-    <url>/posts/23b66728/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>JavaScript 支持面向对象的编程范式，面向对象是一种对现实世界理解和抽象的方法</p>
-<p>所谓对象通常是指客观世界中的真实存在的事物，实物，实象。例如：一支笔、一本书、一只鸟</p>
-<p><strong>面向对象编程的三大特征：</strong></p>
+    <title>JavaScript(三) 运算符与表达式</title>
+    <url>/posts/ca7331ed/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>运算符又称为操作符，运算符就是用于对数据进行各种运算的符号，JavaScript 有算术运算符、赋值运算符、关系运算符等</p>
+<h2 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h2><p>算数运算符包括 加(<code>+</code>) 减(<code>-</code>) 乘(<code>*</code>) 除(<code>/</code>)和 取模(<code>%</code>) 运算符，对于非Number类型的数据值进行算数运算时，会将这些值转换为Number类型然会在运算，其中任何数据类型的值和 NaN 做运算都得 NaN</p>
 <ul>
-<li><p><strong>封装</strong>：只关心入口和出口，而不关心过程</p>
+<li><code>+</code>可以对两个值进行加法运算，并将结果返回</li>
+<li><code>- </code>可以对两个值进行减法运算，并将结果返回</li>
+<li><code>*</code>可以对两个值进行乘法运算，并将结果返回</li>
+<li><code>/ </code>可以对两个值进行除法运算，并将结果返回</li>
+<li><code>%</code>可以对两个值进行取模运算（取余数），并将结果返回</li>
+</ul>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">100</span>+<span class="number">100</span>); <span class="comment">//输出：200</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>-<span class="literal">true</span>); <span class="comment">//输出：1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span>*<span class="literal">NaN</span>); <span class="comment">//输出：NaN</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串加法运算"><a href="#字符串加法运算" class="headerlink" title="字符串加法运算"></a>字符串加法运算</h3><p>运算关系：</p>
+<ul>
+<li>任何数据类型的值与字符串相加时会先将其转换为字符串，然后将两个字符串拼接成一个字符串( 拼串 )</li>
+<li>我们可以让任意的数据类型<code>+&quot;&quot;</code>( 空串 )使其转换为字符串( 隐式转换 )</li>
+</ul>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> + <span class="string">&quot;1&quot;</span>); <span class="comment">//输出：&quot;1231&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;年龄：&quot;</span> + <span class="string">&quot;20&quot;</span>); <span class="comment">//输出：&quot;年龄：20&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">NaN</span> + <span class="string">&quot; 20&quot;</span>); <span class="comment">//输出：&quot;NaN 20&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">200</span> + <span class="string">&quot;&quot;</span>); <span class="comment">//输出：&quot;200&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>加号还可以用来连接下一行的表达式</li>
+</ul>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;锄禾日当午，&quot;</span> +</span><br><span class="line">		  <span class="string">&quot;汗滴禾下土。&quot;</span> +</span><br><span class="line">		  <span class="string">&quot;谁吃盘中餐，&quot;</span> +</span><br><span class="line">		  <span class="string">&quot;粒粒皆辛苦。&quot;</span>);    <span class="comment">//输出：&quot;锄禾日当午，汗滴禾下土。谁吃盘中餐，粒粒皆辛苦。&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符 ( = )"></a>赋值运算符 ( = )</h2><p>可以将等号右边的值赋值给等号左边的变量中，但要注意变量一定要先声明，在赋值</p>
+<p><strong>语法：</strong> <code>变量名 = 5 * 10;</code></p>
+<h3 id="复合运算："><a href="#复合运算：" class="headerlink" title="复合运算："></a>复合运算：</h3><p><code>a+=5</code> 等同于 <code>a = a + 5</code></p>
+<p><code>a-=5</code> 等同于 <code>a = a - 5</code></p>
+<p><code>a*=5 </code> 等同于 <code>a = a * 5</code></p>
+<p><code>a/=5 </code> 等同于 <code>a = a / 5</code></p>
+<p><code>a%=5 </code> 等同于 <code>a = a % 5</code></p>
+<h2 id="一元运算符"><a href="#一元运算符" class="headerlink" title="一元运算符"></a>一元运算符</h2><p>上面的运算符中都有两个操作数，所以它们也叫二元运算符，如果只有一个操作数那它就是一元运算符</p>
+<p>带 <code>+</code> 号的数即正数，带 <code>-</code> 号的数即负数，正号(<code>+</code>)不会对数字产生任何影响，如果在非Number数据类型的值前加上正号(<code>+</code>)即可将其转换为Number类型( 隐式转换 )</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">true</span>;</span><br><span class="line">a = +a;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出：1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="自增与自减运算符"><a href="#自增与自减运算符" class="headerlink" title="自增与自减运算符"></a>自增与自减运算符</h3><p>自增运算符( ++ )，自减运算符( – )，自增和自减运算符会使**<span title="仅对变量有效">变量</span>**的值自动 +1 或 -1</p>
+<p>自增和自减分为两种，分别是前置自增和后置自增、前置自减和后置自减</p>
+<p><strong>语法</strong>：<code>++变量</code> or <code>变量++</code> / <code>--变量</code> or <code>变量--</code></p>
+<blockquote>
+<p>PS：其中后置自减和后置自增返回的是自增和自减前的值，而前置自减和前置自增返回的是自增和自减后的值</p>
+</blockquote>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span></span><br><span class="line"><span class="built_in">console</span>.log(a, a++, a, ++a, a) <span class="comment">//输出：5 5 6 7 7</span></span><br><span class="line"><span class="built_in">console</span>.log(a, a--, a, --a, a) <span class="comment">//输出：7 7 6 5 5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><h3 id="与运算符-amp-amp"><a href="#与运算符-amp-amp" class="headerlink" title="与运算符 ( &amp;&amp; )"></a>与运算符 ( &amp;&amp; )</h3><p>语法：<code>表达式 &amp;&amp; 表达式</code></p>
+<ul>
+<li>运算时会将符号左边的值转换成布尔型再运算</li>
+<li>如果符号左边的表达式返回值为<code>true</code>，则结果为符号右边表达式的值，反之，如果符号左边的表达式返回值为<code>false</code>，则结果为符号左边表达式的值</li>
+</ul>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a, b;</span><br><span class="line">a = <span class="literal">NaN</span> &amp;&amp; <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(b = <span class="string">&quot;你好&quot;</span> &amp;&amp; ++a); <span class="comment">//输出：1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="或运算符"><a href="#或运算符" class="headerlink" title="或运算符 ( || )"></a>或运算符 ( || )</h3><p>语法：<code>表达式 || 表达式</code></p>
+<ul>
+<li><p>运算时会将符号左边的值转换成布尔型再运算</p>
 </li>
-<li><p><strong>继承</strong>：指类与类之间的关系。如果两个类都有相同的属性或方法，那么可以让一个类继承于另类，这样就不需要在前者再次定义同样的属性或方法</p>
-</li>
-<li><p><strong>多态</strong>：不同的对象可以定义具有相同名称的方法，方法是作用于所在的对象中。这种不同对象通过相同方法的调用实现各自行为的能力，被称之为多态</p>
+<li><p>如果符号左边的表达式返回值为<code>false</code>，则结果为符号右边表达式的值，反之，如果符号左边的表达式返回值为<code>true</code>，则结果为符号左边表达式的值</p>
 </li>
 </ul>
-<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>构造函数又可称为对象模版或类型对象，通过构造函数我们可以创建特定<strong>类型</strong>的对象( 实例 )</p>
-<p>构造函数和普通函数的定义方式是一样的，通常为了区分，构造函数的名称首字母要求大写</p>
-<p>语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 名称(<span class="params">[形参<span class="number">1</span>, 形参<span class="number">2.</span>..形参N]</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//constructor body</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建实例"><a href="#创建实例" class="headerlink" title="创建实例"></a>创建实例</h3><p>语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> 对象名 = <span class="keyword">new</span> 构造函数([实参<span class="number">1</span>, 实参<span class="number">2.</span>..实参N])</span><br></pre></td></tr></table></figure>
-
 <p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, gender</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name,</span><br><span class="line">  <span class="built_in">this</span>.age = age,</span><br><span class="line">  <span class="built_in">this</span>.gender = gender;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//方法需要添加到原型中以节省资源</span></span><br><span class="line">  alert(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建实例 */</span></span><br><span class="line"><span class="keyword">var</span> xiaoming = <span class="keyword">new</span> Person(<span class="string">&quot;小明&quot;</span>, <span class="number">18</span>, <span class="string">&quot;男&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> xiaomei = <span class="keyword">new</span> Person(<span class="string">&quot;小美&quot;</span>, <span class="number">16</span>, <span class="string">&quot;女&quot;</span>);</span><br><span class="line"><span class="comment">/* 输出实例 */</span></span><br><span class="line"><span class="built_in">console</span>.log(xiaoming, xiaomei) <span class="comment">//输出：Person&#123;name: &#x27;小明&#x27;, ...&#125; Person&#123;name: &#x27;小美&#x27;, ...&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">55</span>-<span class="number">5</span> || <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出：50</span></span><br><span class="line"><span class="built_in">console</span>.log(b = <span class="literal">false</span> || ++a); <span class="comment">//输出：51</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>类是<strong>封装</strong>对象的属性和方法的<strong>载体</strong>。类定义了对象的特征，例如一辆汽车( 对象 )的名称、车型、重量、颜色等等都是这辆车的属性，而汽车的启动和停止则是这辆车的行为(方法)</p>
-<p>类是面向对象编程中的一个基本的概念。实际上在 Js 中并没有类的概念❕，但 Js 通过构造函数和原型可以实现对类的支持</p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><em>类是对象的抽象，而对象是类的具体实例</em></p>
-<p>通过类所创建的对象称为该类的实例，例如上面案例中的对象<code>xiaoming</code>和<code>xiaomei</code>都是<code>Person</code>类的实例</p>
-<h3 id="this-关键字"><a href="#this-关键字" class="headerlink" title="this 关键字"></a>this 关键字</h3><p>this是Js引擎在执行时自动定义的变量，其值会指向一个对象</p>
+<h3 id="非运算符"><a href="#非运算符" class="headerlink" title="非运算符 ( ! )"></a>非运算符 ( ! )</h3><p>语法：<code>!表达式</code></p>
 <ul>
-<li><p>在全局作用域中访问this时，其值指向全局对象<code>window</code>(默认值)</p>
+<li>对布尔类型数据进行反向运算( 取反 )</li>
+<li><code>!</code> 运算符只有一个操作数，所以属于一元运算符</li>
+<li>非布尔类型数据取反会先将其转换为布尔型在运算</li>
+</ul>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">true</span>;</span><br><span class="line">a = !a;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出false</span></span><br><span class="line"><span class="comment">//还可以多次取反 !!a</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><p>通过关系运算符可以比较两个值关系，如果关系成立 则返回 true，如果不成立 则返回 false</p>
+<p>关系型运算符包括：</p>
+<ul>
+<li><p><code>&gt;</code>(大于)、<code>&gt;=</code>(大于等于)、<code>!&gt;</code>(不大于)</p>
 </li>
-<li><p>在函数作用域中访问this时，根据 <strong>函数调用方式</strong> 的不同，this会指向不同的对象</p>
+<li><p><code>&lt;</code>(小于)、<code>&lt;=</code>(小于等于)、<code>!&lt;</code>(不小于)</p>
 </li>
 </ul>
-<ol>
-<li><p>以方法调用时，this会指向该方法所在的对象</p>
-</li>
-<li><p>以构造函数调用( <code>new 构造函数</code> )时，this会指向其所创建的实例对象</p>
-</li>
-</ol>
+<p>以上的关系运算符在运算时会将符号左右的操作数转换成数值型再做运算，其中NaN不和任何值相等，包括它本身，所以任何数据类型的值在和NaN做关系运算时都会返回 false</p>
 <p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">xiaoming.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;myName is &#x27;</span>+<span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line">xiaoming.sayName(); <span class="comment">//执行结果：myName is 小明</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> &gt; <span class="literal">true</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> == <span class="string">&quot;1&quot;</span>); <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> &gt;= <span class="literal">true</span>) <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> &gt; <span class="string">&#x27;0&#x27;</span>) <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &gt; <span class="literal">null</span>) <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &lt;= <span class="string">&quot;hello&quot;</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1000000000</span> &gt; <span class="literal">NaN</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> &gt; <span class="literal">false</span>) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="new-运算符"><a href="#new-运算符" class="headerlink" title="new 运算符"></a>new 运算符</h3><p>使用new运算符来进行<strong>对象实例化</strong>（根据类创建对象的过程）</p>
-<p>实例化的过程：</p>
-<ol>
-<li>创建一个空对象（即<code>&#123;&#125;</code>）</li>
-<li>执行构造函数，执行前会先</li>
-</ol>
+<blockquote>
+<p>PS：null 在做相等运算(<code>==</code>)时不会自动转换为数值型，由于 undefined 衍生自 null，所以这两个值做相等运算时，会返回 true</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> == <span class="literal">null</span>) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Js中还有两个关系运算符，分别为：</p>
 <ul>
-<li>将变量<code>this</code>的值指向步骤1中所创建的那个对象</li>
-<li>并向对象中添加属性<code>__proto__</code>，将该属性的值指向构造函数的<strong>原型对象</strong>（<code>prototype</code>）</li>
+<li><code>===</code>(全等)</li>
+<li><code>!==</code>(不全等)</li>
 </ul>
-<ol start="3">
-<li>构造函数执行完后，返回<strong>实例对象</strong>( 没有手动返回了一个对象的情况下，为步骤1中所创建的那个对象 )</li>
-</ol>
-</blockquote>
-<h2 id="call、apply、bind-方法"><a href="#call、apply、bind-方法" class="headerlink" title="call、apply、bind 方法"></a>call、apply、bind 方法</h2><p><code>call</code>、<code>apply</code>、<code>bind</code> 是 <strong>Function类型对象</strong>( 函数 )中的方法，通过 <code>call()</code>、<code>apply()</code>、<code>bind()</code> 方法可以改变函数作用域中变量 this 的值</p>
-<p><code>call()</code>的语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">函数.call(<span class="built_in">this</span>的值, 实参<span class="number">1</span>, 实参<span class="number">2.</span>..实参N)</span><br></pre></td></tr></table></figure>
-
-<p><code>apply()</code>的语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">函数.apply(<span class="built_in">this</span>的值, [实参列表])</span><br></pre></td></tr></table></figure>
-
-<p><code>bind()</code>的语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">函数.bind(<span class="built_in">this</span>的值, 实参<span class="number">1</span>, 实参<span class="number">2.</span>..实参N)</span><br></pre></td></tr></table></figure>
-
+<p>全等和不全等运算符在做运算时，不会做自动数据类型转换，如果两个不同数据类型的值做全等(<code>===</code>)运算时，直接返回 false，同样的，如果两个不同数据类型的值做不全等(<code>!==</code>)运算时，直接返回 true</p>
 <p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 例1 */</span></span><br><span class="line"><span class="built_in">window</span>.number = <span class="string">&#x27;one&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> s1 = &#123;<span class="attr">number</span>: <span class="string">&#x27;tow&#x27;</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.number);</span><br><span class="line">&#125;</span><br><span class="line">change.apply();         <span class="comment">//执行结果：one</span></span><br><span class="line">change.apply(<span class="built_in">window</span>);   <span class="comment">//执行结果：one</span></span><br><span class="line">change.apply(<span class="built_in">this</span>);     <span class="comment">//执行结果：one</span></span><br><span class="line">change.apply(s1);       <span class="comment">//执行结果：tow</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 例2 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> reply = <span class="built_in">this</span>.animal + <span class="string">&#x27;通常只睡&#x27;</span> + <span class="built_in">this</span>.sleepDuration;</span><br><span class="line">  <span class="built_in">console</span>.log(reply);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">animal</span>: <span class="string">&#x27;猫&#x27;</span>,</span><br><span class="line">  <span class="attr">sleepDuration</span>: <span class="string">&#x27;12～16个小时&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line">greet.call(obj);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> === <span class="string">&quot;1&quot;</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> !== <span class="number">1</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> !== <span class="string">&quot;1&quot;</span>) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<h3 id="call、apply、bind-的区别"><a href="#call、apply、bind-的区别" class="headerlink" title="call、apply、bind 的区别"></a>call、apply、bind 的区别</h3><p><code>call</code>、<code>apply</code>、<code>bind</code> 方法都包含一个<strong>对象</strong>( 严格模式下除外 )作为该方法的第1个参数，其后的参数会作为函数的实参。但在传参时，<code>apply()</code> 方法需要将实参以数组的形式传递至函数</p>
-<p><code>call</code> 和 <code>apply</code> 方法会以指定的 this 的值调用一次该函数，而 <code>bind()</code> 方法会将其所在函数返回，不会自动调用</p>
-<p>如果以上传入的第一个参数为 null 或 undefined 则不会改变函数作用域中 this 的值( 严格模式除外 )</p>
+<h3 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN()"></a>isNaN()</h3><p>通过<code>isNaN()</code>函数可以判断一个值是否为NaN，如果为 <code>NaN</code>则返回值为<code>true</code>，否则为<code>false</code>。</p>
 <p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">c, d</span>)</span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">this</span>.a + <span class="built_in">this</span>.b + c + d;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> s = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(add.call(s, <span class="number">3</span>, <span class="number">4</span>)); <span class="comment">//输出：10</span></span><br><span class="line"><span class="built_in">console</span>.log(add.apply(s, [<span class="number">5</span>, <span class="number">6</span>])); <span class="comment">//输出：14</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="原型（prototype）"><a href="#原型（prototype）" class="headerlink" title="原型（prototype）"></a>原型（prototype）</h2><p>函数是一个包含属性和方法的 <strong>Function 类型</strong>的对象。而原型( <code>prototype</code> )就是 Function 类型对象的一个属性</p>
-<p>js 中所有函数在定义时，js 引擎都会自动向函数中添加<code>prototype</code>属性，其值是一个 Object 类型的对象( <code>new Object()</code> )，称为原型对象( prototype对象 )，该对象有一个 constructor 属性指向该构造函数</p>
-<p>当通过构造函数创建实例时，实例对象中会有一个隐藏的内部属性( <code>__proto__</code> )指向其构造函数的原型对象</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="built_in">console</span>.log(obj.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;abc&#x27;</span></span><br><span class="line">a = <span class="built_in">Number</span>(a)</span><br><span class="line"><span class="built_in">console</span>.log(a, <span class="built_in">isNaN</span>(a)) <span class="comment">//输出：NaN, true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="literal">NaN</span>)) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>每个实例对象都有一个私有属性（称之为<code>__proto__</code>）指向它的构造函数的原型对象（<code>prototype</code>）。该原型对象也有一个自己的原型对象（<code>__proto__</code>），层层向上直到一个对象的<code>__proto__</code>属性值为<code>null</code>为止。这种沿着<code>__proto__</code>属性的链式结构就称为原型链</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//this.xxx = xxx;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fun = <span class="keyword">new</span> Fn();</span><br><span class="line">Fn.prototype.a = <span class="number">123</span>;</span><br><span class="line"><span class="built_in">console</span>.log(fun.a, fun.b); <span class="comment">//输出：123 undefined</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://cdn3.tianli0.top/gh/k34869/images/image/20221112104157" alt="prototype"></p>
-<p>原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象</p>
-<p>当从对象中访问一个属性时会先在自身对象中查找</p>
+<h2 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h2><p>条件运算符有3个操作数，所以也称为 <strong>三元运算符</strong></p>
+<p>语法：<code>条件 ? 表达式1 : 表达式2</code></p>
 <ul>
-<li>如果没找到，则沿着<code>__proto__</code>这条链向上查找</li>
-<li>如果依然没找到，则返回 undefined</li>
+<li><p>如果条件值为 true(非布尔值自动转换) 则执行表达式1，并返回其值，反之亦然.</p>
+</li>
+<li><p>三元运算符是对if……else语句的一种简化写法</p>
+</li>
 </ul>
-<h3 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h3><p>描述：获取指定对象的原型</p>
-<p>语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(对象)</span><br></pre></td></tr></table></figure>
+<p>下面的范例中，如果变量 age 中的值小于 18，则向变量 voteable 赋值 “年龄太小”，否则赋值 “年龄已达到”</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">voteable = (age &lt; <span class="number">18</span>) ? <span class="string">&quot;年龄太小&quot;</span> : <span class="string">&quot;年龄已达到&quot;</span>;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Object-setPrototypeOf"><a href="#Object-setPrototypeOf" class="headerlink" title="Object.setPrototypeOf()"></a>Object.setPrototypeOf()</h3><p>描述：设置指定对象的原型</p>
-<p>语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf(对象, 原型)</span><br></pre></td></tr></table></figure>
+<p>案例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 是否年满18岁</span></span><br><span class="line"><span class="keyword">var</span> age = <span class="built_in">parseInt</span>(prompt(<span class="string">&quot;请您输入年龄&quot;</span>));</span><br><span class="line"><span class="keyword">var</span> s = (age &gt;= <span class="number">18</span>) ? <span class="string">&#x27;18岁了&#x27;</span> : <span class="string">&#x27;未满18岁&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s);</span><br></pre></td></tr></table></figure>
 
-<h3 id="hasOwnProperty-NaN"><a href="#hasOwnProperty-NaN" class="headerlink" title="hasOwnProperty()"></a>hasOwnProperty()</h3><p>描述：检测对象中的属性是否存在( 不包括原型中的属性，检测原型中的属性可以用 in 运算符 )，存在则返回 true，反之则为 false</p>
-<p>语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">对象.hasOwnProperty(属性名) <span class="comment">//属性名为一个字符串</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>JavaScript 是基于原型实现的继承，和其它传统的基于类的语言( 如 Java 或 C++ )相比，Js 显得比较独特</p>
-<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p>核心：将父类实例作为子类原型</p>
+<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><p>表达式是指可以进行运算，且必须返回一个确定的值的式子，一般由常量、变量、运算符、子表达式构成，最简单的表达式可以是一个简单的值( 常量 or 变量 )</p>
 <p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.a = <span class="string">&#x27;My is a&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">A.prototype.ca = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.b = <span class="string">&#x27;My is b&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A(); <span class="comment">//子类的prototype指向父类的实例对象</span></span><br><span class="line">B.prototype.constructor = B; <span class="comment">//修正构造函数指向</span></span><br><span class="line">B.prototype.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="built_in">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B()</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 值表达式 */</span></span><br><span class="line"><span class="number">1</span>			<span class="comment">//数字表达式</span></span><br><span class="line"><span class="string">&#x27;a&#x27;</span>		<span class="comment">//字符串表达式</span></span><br><span class="line"><span class="literal">true</span>	<span class="comment">//布尔值表达式</span></span><br><span class="line">a			<span class="comment">//变量表达式</span></span><br></pre></td></tr></table></figure>
 
+<p>在实际编程中，可以使用运算符建立复杂的表达式</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span> + <span class="number">3</span> - <span class="number">2</span></span><br><span class="line">a = b * <span class="number">3</span> <span class="comment">// 赋值表达式 返回赋值结果</span></span><br><span class="line">a + <span class="number">3</span> &gt; b + <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>运算符一般由一些符号组成，如 “+” “/” “=” “%” 等，也有些运算符使用关键字表示，如 typeof</p>
 <blockquote>
-<p>PS：原型链虽然很强大，用它可以实现 JavaScript 中的继承，但同时也存在着一些问题。原型链继承实际上是在多个构造函数或对象之间共享属性和方法，这种方法在创建子类的对象时，不能向父类的构造函数传递任何参数</p>
-</blockquote>
-<h3 id="借用构造函数继承"><a href="#借用构造函数继承" class="headerlink" title="借用构造函数继承"></a>借用构造函数继承</h3><p>核心：借用父类构造函数来增强子类实例，等于复制父类实例的属性给子类</p>
+<h3 id="词（token）"><a href="#词（token）" class="headerlink" title="词（token）"></a>词（token）</h3><p>词是 JavaScript 中的最小语义单元，包括常量、变量、运算符、表达式、指令等</p>
 <p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">    <span class="built_in">this</span>.ca = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(<span class="built_in">this</span>.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>, <span class="string">&#x27;a&#x27;</span>) <span class="comment">//调用父类构造函数，并绑定 this</span></span><br><span class="line">    <span class="built_in">this</span>.b = b</span><br><span class="line">    <span class="built_in">this</span>.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(<span class="built_in">this</span>.b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 变量声明语句 */</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">123</span>;</span><br><span class="line"><span class="comment">/* 组成 */</span></span><br><span class="line"><span class="keyword">var</span>	<span class="comment">//指令(语句标识符)</span></span><br><span class="line">a		<span class="comment">//变量名(标识符)</span></span><br><span class="line">=		<span class="comment">//赋值运算符</span></span><br><span class="line"><span class="number">123</span>	<span class="comment">//值(数字)</span></span><br><span class="line">;		<span class="comment">//运算符</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>PS：借用构造函数继承就是通过 <code>apply()</code> 或 <code>call()</code> 方法在子类构造函数中调用父类的构造函数，并将父类和子类的 this 绑定在一起，这种方式可以向父类传递参数，但不能实现方法的复用</p>
-</blockquote>
-<h3 id="组合式继承"><a href="#组合式继承" class="headerlink" title="组合式继承"></a>组合式继承</h3><p>核心：通过调用父类构造函数来实现向父类构造函数传递参数，然后通过将父类实例作为子类原型来实现方法复用</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.cs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>, <span class="string">&#x27;a&#x27;</span>) <span class="comment">//调用父类构造函数，并绑定 this</span></span><br><span class="line">    <span class="built_in">this</span>.b = b</span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A; <span class="comment">//子类的prototype指向父类的实例对象</span></span><br><span class="line">B.prototype.constructor = B; <span class="comment">//修正构造函数指向</span></span><br><span class="line">B.prototype.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>PS：组合继承是将原型链继承和借用构造函数的技术组合在一起，发挥二者长处的一种继承方式，这样，既通过在原型上定义方法实现了方法的复用，又可以保证每个对象都有自己的专有属性，但这种方法，会调用2次父类的构造函数，因此会存在一份多余的实例属性</p>
-</blockquote>
-<h3 id="组合寄生式继承"><a href="#组合寄生式继承" class="headerlink" title="组合寄生式继承"></a>组合寄生式继承</h3><p>核心：通过调用父类构造函数来实现向父类构造函数传递参数，然后通过将父类原型作为新对象的原型，并将新对象赋值给子类原型来实现方法复用，并且避免了多余的实例属性</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义A类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.cs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 定义B类 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>, <span class="string">&#x27;a&#x27;</span>) <span class="comment">//调用父类构造函数，并绑定 this</span></span><br><span class="line">    <span class="built_in">this</span>.b = b</span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="built_in">Object</span>.create(A.prototype); <span class="comment">//将父类原型作为新对象的原型，并将新对象赋值给子类原型</span></span><br><span class="line">B.prototype.cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建B类的实例 */</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<h3 id="父类和子类"><a href="#父类和子类" class="headerlink" title="父类和子类"></a><span title="基类">父类</span>和子类</h3><p>继承的类称为子类，被继承的类称为父类，子类具有父类的全部属性和方法，但父类不能拥有子类的属性和方法</p>
-<h3 id="instanceof-运算符"><a href="#instanceof-运算符" class="headerlink" title="instanceof 运算符"></a>instanceof 运算符</h3><p><strong><code>instanceof</code></strong> <strong>运算符</strong>用于检测构造函数的 <code>prototype</code> 属性是否在某个实例对象的原型链上，如果在，则返回 true，反之返回 false</p>
-<p>语法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">对象 <span class="keyword">instanceof</span> 构造函数</span><br></pre></td></tr></table></figure>
-
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">D</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> C();</span><br><span class="line">o <span class="keyword">instanceof</span> C; <span class="comment">//返回true</span></span><br><span class="line">o <span class="keyword">instanceof</span> D; <span class="comment">//返回false</span></span><br><span class="line">C.prototype <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">//返回true</span></span><br><span class="line">D.prototype = <span class="keyword">new</span> C(); <span class="comment">//继承</span></span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> D();</span><br><span class="line">o2 <span class="keyword">instanceof</span> D; <span class="comment">//返回true</span></span><br><span class="line">o2 <span class="keyword">instanceof</span> C; <span class="comment">//返回true</span></span><br></pre></td></tr></table></figure>
+<h3 id="语句（statement）"><a href="#语句（statement）" class="headerlink" title="语句（statement）"></a>语句（statement）</h3><p>在高级语言中，语句是一个能够对计算机下达<strong>指令</strong>的程序代码</p>
+<p>JavaScript 语句通常以一个语句标识符为开始，并执行该语句。语句标识符用来标识程序要执行的动作，语句标识符为保留关键字不能作为任何自定义的标识符使用</p>
+<p>多条语句之间用分号( <code>;</code> )分隔</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -528,154 +676,6 @@ Null字符（\u0000）</td>
 <p>使用<code>Boolean()</code>函数 可以将其它数据类型转换为布尔型</p>
 <p><strong>转换关系：</strong></p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">±<span class="number">123</span> =&gt; <span class="literal">true</span>;</span><br><span class="line"><span class="number">0</span> =&gt; <span class="literal">false</span>;</span><br><span class="line"><span class="function"><span class="params">NaN</span> =&gt;</span> <span class="literal">false</span>;</span><br><span class="line"><span class="function"><span class="params">undefined</span> =&gt;</span> <span class="literal">false</span>;</span><br><span class="line"><span class="string">&quot;Hello_你好&quot;</span> =&gt; <span class="literal">true</span>;</span><br><span class="line"><span class="string">&quot;&quot;</span> =&gt; <span class="literal">false</span>;</span><br><span class="line"><span class="function"><span class="params">null</span> =&gt;</span> <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Web开发</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaScript(三) 运算符与表达式</title>
-    <url>/posts/ca7331ed/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>运算符又称为操作符，运算符就是用于对数据进行各种运算的符号，JavaScript 有算术运算符、赋值运算符、关系运算符等</p>
-<h2 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h2><p>算数运算符包括 加(<code>+</code>) 减(<code>-</code>) 乘(<code>*</code>) 除(<code>/</code>)和 取模(<code>%</code>) 运算符，对于非Number类型的数据值进行算数运算时，会将这些值转换为Number类型然会在运算，其中任何数据类型的值和 NaN 做运算都得 NaN</p>
-<ul>
-<li><code>+</code>可以对两个值进行加法运算，并将结果返回</li>
-<li><code>- </code>可以对两个值进行减法运算，并将结果返回</li>
-<li><code>*</code>可以对两个值进行乘法运算，并将结果返回</li>
-<li><code>/ </code>可以对两个值进行除法运算，并将结果返回</li>
-<li><code>%</code>可以对两个值进行取模运算（取余数），并将结果返回</li>
-</ul>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">100</span>+<span class="number">100</span>); <span class="comment">//输出：200</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>-<span class="literal">true</span>); <span class="comment">//输出：1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span>*<span class="literal">NaN</span>); <span class="comment">//输出：NaN</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="字符串加法运算"><a href="#字符串加法运算" class="headerlink" title="字符串加法运算"></a>字符串加法运算</h3><p>运算关系：</p>
-<ul>
-<li>任何数据类型的值与字符串相加时会先将其转换为字符串，然后将两个字符串拼接成一个字符串( 拼串 )</li>
-<li>我们可以让任意的数据类型<code>+&quot;&quot;</code>( 空串 )使其转换为字符串( 隐式转换 )</li>
-</ul>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> + <span class="string">&quot;1&quot;</span>); <span class="comment">//输出：&quot;1231&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;年龄：&quot;</span> + <span class="string">&quot;20&quot;</span>); <span class="comment">//输出：&quot;年龄：20&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">NaN</span> + <span class="string">&quot; 20&quot;</span>); <span class="comment">//输出：&quot;NaN 20&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">200</span> + <span class="string">&quot;&quot;</span>); <span class="comment">//输出：&quot;200&quot;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>加号还可以用来连接下一行的表达式</li>
-</ul>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;锄禾日当午，&quot;</span> +</span><br><span class="line">		  <span class="string">&quot;汗滴禾下土。&quot;</span> +</span><br><span class="line">		  <span class="string">&quot;谁吃盘中餐，&quot;</span> +</span><br><span class="line">		  <span class="string">&quot;粒粒皆辛苦。&quot;</span>);    <span class="comment">//输出：&quot;锄禾日当午，汗滴禾下土。谁吃盘中餐，粒粒皆辛苦。&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符 ( = )"></a>赋值运算符 ( = )</h2><p>可以将等号右边的值赋值给等号左边的变量中，但要注意变量一定要先声明，在赋值</p>
-<p><strong>语法：</strong> <code>变量名 = 5 * 10;</code></p>
-<h3 id="复合运算："><a href="#复合运算：" class="headerlink" title="复合运算："></a>复合运算：</h3><p><code>a+=5</code> 等同于 <code>a = a + 5</code></p>
-<p><code>a-=5</code> 等同于 <code>a = a - 5</code></p>
-<p><code>a*=5 </code> 等同于 <code>a = a * 5</code></p>
-<p><code>a/=5 </code> 等同于 <code>a = a / 5</code></p>
-<p><code>a%=5 </code> 等同于 <code>a = a % 5</code></p>
-<h2 id="一元运算符"><a href="#一元运算符" class="headerlink" title="一元运算符"></a>一元运算符</h2><p>上面的运算符中都有两个操作数，所以它们也叫二元运算符，如果只有一个操作数那它就是一元运算符</p>
-<p>带 <code>+</code> 号的数即正数，带 <code>-</code> 号的数即负数，正号(<code>+</code>)不会对数字产生任何影响，如果在非Number数据类型的值前加上正号(<code>+</code>)即可将其转换为Number类型( 隐式转换 )</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">true</span>;</span><br><span class="line">a = +a;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出：1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="自增与自减运算符"><a href="#自增与自减运算符" class="headerlink" title="自增与自减运算符"></a>自增与自减运算符</h3><p>自增运算符( ++ )，自减运算符( – )，自增和自减运算符会使**<span title="仅对变量有效">变量</span>**的值自动 +1 或 -1</p>
-<p>自增和自减分为两种，分别是前置自增和后置自增、前置自减和后置自减</p>
-<p><strong>语法</strong>：<code>++变量</code> or <code>变量++</code> / <code>--变量</code> or <code>变量--</code></p>
-<blockquote>
-<p>PS：其中后置自减和后置自增返回的是自增和自减前的值，而前置自减和前置自增返回的是自增和自减后的值</p>
-</blockquote>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span></span><br><span class="line"><span class="built_in">console</span>.log(a, a++, a, ++a, a) <span class="comment">//输出：5 5 6 7 7</span></span><br><span class="line"><span class="built_in">console</span>.log(a, a--, a, --a, a) <span class="comment">//输出：7 7 6 5 5</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><h3 id="与运算符-amp-amp"><a href="#与运算符-amp-amp" class="headerlink" title="与运算符 ( &amp;&amp; )"></a>与运算符 ( &amp;&amp; )</h3><p>语法：<code>表达式 &amp;&amp; 表达式</code></p>
-<ul>
-<li>运算时会将符号左边的值转换成布尔型再运算</li>
-<li>如果符号左边的表达式返回值为<code>true</code>，则结果为符号右边表达式的值，反之，如果符号左边的表达式返回值为<code>false</code>，则结果为符号左边表达式的值</li>
-</ul>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a, b;</span><br><span class="line">a = <span class="literal">NaN</span> &amp;&amp; <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(b = <span class="string">&quot;你好&quot;</span> &amp;&amp; ++a); <span class="comment">//输出：1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="或运算符"><a href="#或运算符" class="headerlink" title="或运算符 ( || )"></a>或运算符 ( || )</h3><p>语法：<code>表达式 || 表达式</code></p>
-<ul>
-<li><p>运算时会将符号左边的值转换成布尔型再运算</p>
-</li>
-<li><p>如果符号左边的表达式返回值为<code>false</code>，则结果为符号右边表达式的值，反之，如果符号左边的表达式返回值为<code>true</code>，则结果为符号左边表达式的值</p>
-</li>
-</ul>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">55</span>-<span class="number">5</span> || <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出：50</span></span><br><span class="line"><span class="built_in">console</span>.log(b = <span class="literal">false</span> || ++a); <span class="comment">//输出：51</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="非运算符"><a href="#非运算符" class="headerlink" title="非运算符 ( ! )"></a>非运算符 ( ! )</h3><p>语法：<code>!表达式</code></p>
-<ul>
-<li>对布尔类型数据进行反向运算( 取反 )</li>
-<li><code>!</code> 运算符只有一个操作数，所以属于一元运算符</li>
-<li>非布尔类型数据取反会先将其转换为布尔型在运算</li>
-</ul>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">true</span>;</span><br><span class="line">a = !a;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//输出false</span></span><br><span class="line"><span class="comment">//还可以多次取反 !!a</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><p>通过关系运算符可以比较两个值关系，如果关系成立 则返回 true，如果不成立 则返回 false</p>
-<p>关系型运算符包括：</p>
-<ul>
-<li><p><code>&gt;</code>(大于)、<code>&gt;=</code>(大于等于)、<code>!&gt;</code>(不大于)</p>
-</li>
-<li><p><code>&lt;</code>(小于)、<code>&lt;=</code>(小于等于)、<code>!&lt;</code>(不小于)</p>
-</li>
-</ul>
-<p>以上的关系运算符在运算时会将符号左右的操作数转换成数值型再做运算，其中NaN不和任何值相等，包括它本身，所以任何数据类型的值在和NaN做关系运算时都会返回 false</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> &gt; <span class="literal">true</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> == <span class="string">&quot;1&quot;</span>); <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> &gt;= <span class="literal">true</span>) <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> &gt; <span class="string">&#x27;0&#x27;</span>) <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &gt; <span class="literal">null</span>) <span class="comment">//输出：true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &lt;= <span class="string">&quot;hello&quot;</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1000000000</span> &gt; <span class="literal">NaN</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> &gt; <span class="literal">false</span>) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>PS：null 在做相等运算(<code>==</code>)时不会自动转换为数值型，由于 undefined 衍生自 null，所以这两个值做相等运算时，会返回 true</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> == <span class="literal">null</span>) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>Js中还有两个关系运算符，分别为：</p>
-<ul>
-<li><code>===</code>(全等)</li>
-<li><code>!==</code>(不全等)</li>
-</ul>
-<p>全等和不全等运算符在做运算时，不会做自动数据类型转换，如果两个不同数据类型的值做全等(<code>===</code>)运算时，直接返回 false，同样的，如果两个不同数据类型的值做不全等(<code>!==</code>)运算时，直接返回 true</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> === <span class="string">&quot;1&quot;</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> !== <span class="number">1</span>) <span class="comment">//输出：false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> !== <span class="string">&quot;1&quot;</span>) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN()"></a>isNaN()</h3><p>通过<code>isNaN()</code>函数可以判断一个值是否为NaN，如果为 <code>NaN</code>则返回值为<code>true</code>，否则为<code>false</code>。</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;abc&#x27;</span></span><br><span class="line">a = <span class="built_in">Number</span>(a)</span><br><span class="line"><span class="built_in">console</span>.log(a, <span class="built_in">isNaN</span>(a)) <span class="comment">//输出：NaN, true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="literal">NaN</span>)) <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h2><p>条件运算符有3个操作数，所以也称为 <strong>三元运算符</strong></p>
-<p>语法：<code>条件 ? 表达式1 : 表达式2</code></p>
-<ul>
-<li><p>如果条件值为 true(非布尔值自动转换) 则执行表达式1，并返回其值，反之亦然.</p>
-</li>
-<li><p>三元运算符是对if……else语句的一种简化写法</p>
-</li>
-</ul>
-<p>下面的范例中，如果变量 age 中的值小于 18，则向变量 voteable 赋值 “年龄太小”，否则赋值 “年龄已达到”</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">voteable = (age &lt; <span class="number">18</span>) ? <span class="string">&quot;年龄太小&quot;</span> : <span class="string">&quot;年龄已达到&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>案例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 是否年满18岁</span></span><br><span class="line"><span class="keyword">var</span> age = <span class="built_in">parseInt</span>(prompt(<span class="string">&quot;请您输入年龄&quot;</span>));</span><br><span class="line"><span class="keyword">var</span> s = (age &gt;= <span class="number">18</span>) ? <span class="string">&#x27;18岁了&#x27;</span> : <span class="string">&#x27;未满18岁&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s);</span><br></pre></td></tr></table></figure>
-
-<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><p>表达式是指可以进行运算，且必须返回一个确定的值的式子，一般由常量、变量、运算符、子表达式构成，最简单的表达式可以是一个简单的值( 常量 or 变量 )</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 值表达式 */</span></span><br><span class="line"><span class="number">1</span>			<span class="comment">//数字表达式</span></span><br><span class="line"><span class="string">&#x27;a&#x27;</span>		<span class="comment">//字符串表达式</span></span><br><span class="line"><span class="literal">true</span>	<span class="comment">//布尔值表达式</span></span><br><span class="line">a			<span class="comment">//变量表达式</span></span><br></pre></td></tr></table></figure>
-
-<p>在实际编程中，可以使用运算符建立复杂的表达式</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span> + <span class="number">3</span> - <span class="number">2</span></span><br><span class="line">a = b * <span class="number">3</span> <span class="comment">// 赋值表达式 返回赋值结果</span></span><br><span class="line">a + <span class="number">3</span> &gt; b + <span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<p>运算符一般由一些符号组成，如 “+” “/” “=” “%” 等，也有些运算符使用关键字表示，如 typeof</p>
-<blockquote>
-<h3 id="词（token）"><a href="#词（token）" class="headerlink" title="词（token）"></a>词（token）</h3><p>词是 JavaScript 中的最小语义单元，包括常量、变量、运算符、表达式、指令等</p>
-<p>例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 变量声明语句 */</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">123</span>;</span><br><span class="line"><span class="comment">/* 组成 */</span></span><br><span class="line"><span class="keyword">var</span>	<span class="comment">//指令(语句标识符)</span></span><br><span class="line">a		<span class="comment">//变量名(标识符)</span></span><br><span class="line">=		<span class="comment">//赋值运算符</span></span><br><span class="line"><span class="number">123</span>	<span class="comment">//值(数字)</span></span><br><span class="line">;		<span class="comment">//运算符</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="语句（statement）"><a href="#语句（statement）" class="headerlink" title="语句（statement）"></a>语句（statement）</h3><p>在高级语言中，语句是一个能够对计算机下达<strong>指令</strong>的程序代码</p>
-<p>JavaScript 语句通常以一个语句标识符为开始，并执行该语句。语句标识符用来标识程序要执行的动作，语句标识符为保留关键字不能作为任何自定义的标识符使用</p>
-<p>多条语句之间用分号( <code>;</code> )分隔</p>
-</blockquote>
-]]></content>
       <categories>
         <category>Web开发</category>
       </categories>
