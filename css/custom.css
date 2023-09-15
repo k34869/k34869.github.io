@@ -1,6 +1,1 @@
-@font-face {
-    font-family: 'LXGWZhenKai';
-    src: url('https://jsd.onmicrosoft.cn/gh/k34869/MYZY/LXGWZhenKai.woff2') format('woff2'),
-    url('https://jsd.onmicrosoft.cn/gh/k34869/MYZY/LXGWZhenKai.woff') format('woff');
-}
-.author-info__name {background-image: linear-gradient(92deg, #f35626 0, #feab3a 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;font-family: 'LXGWZhenKai'}
+@font-face{font-family:LXGWZhenKai;src:url(https://jsd.onmicrosoft.cn/gh/k34869/MYZY/LXGWZhenKai.woff2) format('woff2'),url(https://jsd.onmicrosoft.cn/gh/k34869/MYZY/LXGWZhenKai.woff) format('woff')}.author-info__name{background-image:linear-gradient(92deg,#f35626 0,#feab3a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-family:LXGWZhenKai}
