@@ -247,7 +247,7 @@
 
   <url>
     <loc>https://www.timeic.top/</loc>
-    <lastmod>2025-02-18</lastmod>
+    <lastmod>2025-02-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -255,35 +255,35 @@
   
   <url>
     <loc>https://www.timeic.top/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</loc>
-    <lastmod>2025-02-18</lastmod>
+    <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.timeic.top/tags/JavaScript/</loc>
-    <lastmod>2025-02-18</lastmod>
+    <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.timeic.top/tags/Node-js/</loc>
-    <lastmod>2025-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.timeic.top/tags/TypeScript/</loc>
-    <lastmod>2025-02-18</lastmod>
+    <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.timeic.top/tags/Vue-js/</loc>
-    <lastmod>2025-02-18</lastmod>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.timeic.top/tags/TypeScript/</loc>
+    <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -292,14 +292,14 @@
   
   <url>
     <loc>https://www.timeic.top/categories/Windows/</loc>
-    <lastmod>2025-02-18</lastmod>
+    <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.timeic.top/categories/Web%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2025-02-18</lastmod>
+    <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
